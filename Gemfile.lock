@@ -7,7 +7,12 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    coderay (1.1.2)
     ecdsa (1.2.0)
+    method_source (0.9.0)
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
     rake (10.5.0)
 
 PLATFORMS
@@ -15,6 +20,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
+  pry (~> 0.11)
   rake (~> 10.0)
   study-encrypt!
 
