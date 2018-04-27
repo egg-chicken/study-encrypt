@@ -30,10 +30,11 @@ module Study
 
       sign = signature(private_key, message)
       binary = ECDSA::Format::SignatureDerString.encode(sign)
-      puts "電子署名r    ... #{sign.r}"
-      puts "電子署名s    ... #{sign.s}"
-      puts "電子署名DER  ... #{binary.codepoints.map {|c| c.to_s(16) }.join}"
-      puts "電子署名検証 ... #{validate_signature(public_key, message, binary)}"
+      puts "ecdsa ライブラリでの署名"
+      puts "署名r    ... #{sign.r}"
+      puts "署名s    ... #{sign.s}"
+      puts "署名DER  ... #{binary.codepoints.map {|c| c.to_s(16) }.join}"
+      puts "署名検証 ... #{validate_signature(public_key, message, binary)}"
     end
 
     private

@@ -18,6 +18,7 @@ module Study
 
       def print_signature
         Study::UseEcdsa.new.print_signature
+        Study::UseOpenSSL.new.print_signature
       end
     end
   end
