@@ -1,0 +1,22 @@
+PATH
+  remote: .
+  specs:
+    study-encrypt (0.1.0)
+      ecdsa (~> 1.2)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ecdsa (1.2.0)
+    rake (10.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.16)
+  rake (~> 10.0)
+  study-encrypt!
+
+BUNDLED WITH
+   1.16.1
