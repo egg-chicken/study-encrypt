@@ -1,5 +1,6 @@
 require "ecdsa"
 require "securerandom"
+require "digest"
 
 module Study
   class UseEcdsa
@@ -22,6 +23,22 @@ module Study
       puts "公開鍵y ... #{public_key.y}"
     end
 
+    def print_signature
+      private_key = generate_private_key
+      public_key = generate_public_key(private_key)
+      message = "署名を必要とする文章 ..."
+      digest  = Digest::SHA256.hexdigest(message)
+
+      k = 1 + SecureRandom.random_number(group.order - 1)
+      sign = ECDSA.sign(group, private_key, digest, k)
+      binary = ECDSA::Format::SignatureDerString.encode(sign)
+      puts "電子署名r   ... #{sign.r}"
+      puts "電子署名s   ... #{sign.s}"
+      puts "電子署名DER ... #{binary.codepoints.map {|c| c.to_s(16) }.join}"
+    end
+
+    private
+
     def generate_private_key
       SecureRandom.random_number(group.order - 1)
     end
@@ -29,8 +46,6 @@ module Study
     def generate_public_key(private_key)
       group.generator.multiply_by_scalar(private_key)
     end
-
-    private
 
     def group
       ECDSA::Group::Secp256k1

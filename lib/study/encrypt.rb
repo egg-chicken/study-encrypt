@@ -15,6 +15,10 @@ module Study
         Study::UseBitcoin.new.print_keys
         Study::UseOpenSSL.new.print_keys
       end
+
+      def print_signature
+        Study::UseEcdsa.new.print_signature
+      end
     end
   end
 end
