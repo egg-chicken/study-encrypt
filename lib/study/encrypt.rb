@@ -1,5 +1,6 @@
 require "study/encrypt/version"
 require "study/use_ecdsa"
+require "study/use_bitcoin"
 
 module Study
   module Encrypt
@@ -10,6 +11,7 @@ module Study
 
       def print_keys
         Study::UseEcdsa.new.print_keys
+        Study::UseBitcoin.new.print_keys
       end
     end
   end

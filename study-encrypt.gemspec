@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "pry", "~> 0.11"
   spec.add_dependency "ecdsa", "~> 1.2"
+  spec.add_dependency "bitcoin-ruby", "~> 0.0"
 end
