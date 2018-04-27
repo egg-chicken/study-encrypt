@@ -24,20 +24,31 @@ module Study
     end
 
     def print_signature
+      message = "署名を必要とする文章 ..."
       private_key = generate_private_key
       public_key = generate_public_key(private_key)
-      message = "署名を必要とする文章 ..."
-      digest  = Digest::SHA256.hexdigest(message)
 
-      k = 1 + SecureRandom.random_number(group.order - 1)
-      sign = ECDSA.sign(group, private_key, digest, k)
+      sign = signature(private_key, message)
       binary = ECDSA::Format::SignatureDerString.encode(sign)
-      puts "電子署名r   ... #{sign.r}"
-      puts "電子署名s   ... #{sign.s}"
-      puts "電子署名DER ... #{binary.codepoints.map {|c| c.to_s(16) }.join}"
+      puts "電子署名r    ... #{sign.r}"
+      puts "電子署名s    ... #{sign.s}"
+      puts "電子署名DER  ... #{binary.codepoints.map {|c| c.to_s(16) }.join}"
+      puts "電子署名検証 ... #{validate_signature(public_key, message, binary)}"
     end
 
     private
+
+    def signature(private_key, message)
+      digest  = Digest::SHA256.hexdigest(message)
+      k = 1 + SecureRandom.random_number(group.order - 1)
+      ECDSA.sign(group, private_key, digest, k)
+    end
+
+    def validate_signature(public_key, message, binary_sign)
+      digest  = Digest::SHA256.hexdigest(message)
+      sign = ECDSA::Format::SignatureDerString.decode(binary_sign)
+      ECDSA.valid_signature?(public_key, digest, sign)
+    end
 
     def generate_private_key
       SecureRandom.random_number(group.order - 1)
